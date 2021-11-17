@@ -10,127 +10,14 @@ import java.util.UUID;
 public class PlayerCOTDData {
 
     /**
-     * The stats on the ranks of a COTD category
-     */
-    class bestRank {
-
-        /**
-         * The best rank of the player
-         */
-        private int bestRank;
-
-        /**
-         * The date of the best rank
-         */
-        private LocalDateTime bestRankDate;
-
-        /**
-         * The best rank of the player when they were in their best division
-         */
-        private int bestDivRank;
-
-        /**
-         * The best division of the player
-         */
-        private int bestDiv;
-
-        /**
-         * The date of the best division
-         */
-        private LocalDateTime bestDivDate;
-
-        /**
-         * The best rank of the player in any division
-         */
-        private int bestRankInDiv;
-
-        /**
-         * The date of the best rank in any division
-         */
-        private LocalDateTime bestRankInDivDate;
-
-        /**
-         * The division the player was in when they had the best rank
-         */
-        private int bestRankInDivDiv;
-
-        public bestRank(int bestRank, LocalDateTime bestRankDate, int bestDivRank, int bestDiv, LocalDateTime bestDivDate, int bestRankInDiv, LocalDateTime bestRankInDivDate, int bestRankInDivDiv) {
-            this.bestRank = bestRank;
-            this.bestRankDate = bestRankDate;
-            this.bestDivRank = bestDivRank;
-            this.bestDiv = bestDiv;
-            this.bestDivDate = bestDivDate;
-            this.bestRankInDiv = bestRankInDiv;
-            this.bestRankInDivDate = bestRankInDivDate;
-            this.bestRankInDivDiv = bestRankInDivDiv;
-        }
-
-        /**
-         * @return {@link #bestRank}
-         */
-        public int getBestRank() {
-            return bestRank;
-        }
-
-        /**
-         * @return {@link #bestRankDate}
-         */
-        public LocalDateTime getBestRankDate() {
-            return bestRankDate;
-        }
-
-        /**
-         * @return {@link #bestDivRank}
-         */
-        public int getBestDivRank() {
-            return bestDivRank;
-        }
-
-        /**
-         * @return {@link #bestDiv}
-         */
-        public int getBestDiv() {
-            return bestDiv;
-        }
-
-        /**
-         * @return {@link #bestDivDate}
-         */
-        public LocalDateTime getBestDivDate() {
-            return bestDivDate;
-        }
-
-        /**
-         * @return {@link #bestRankInDiv}
-         */
-        public int getBestRankInDiv() {
-            return bestRankInDiv;
-        }
-
-        /**
-         * @return {@link #bestRankInDivDate}
-         */
-        public LocalDateTime getBestRankInDivDate() {
-            return bestRankInDivDate;
-        }
-
-        /**
-         * @return {@link #bestRankInDivDiv}
-         */
-        public int getBestRankInDivDiv() {
-            return bestRankInDivDiv;
-        }
-    }
-
-    /**
      * The stats on the ranks of the primary COTD (each day at 19:00)
      */
-    private bestRank bestPrimaryRank;
+    private BestRank bestPrimaryRank;
 
     /**
      * The stats on the ranks of all the COTD (3 per day)
      */
-    private bestRank bestOverallRank;
+    private BestRank bestOverallRank;
 
     /**
      * The player's name
@@ -182,18 +69,32 @@ public class PlayerCOTDData {
      */
     private int divWinStreak;
 
+    public PlayerCOTDData(BestRank bestPrimaryRank, BestRank bestOverallRank, String playerName, UUID playerUUID, int total, int totalWins, int totalDivWins, double averageRank, double averageDivRank, double averageDiv, int winStreak, int divWinStreak) {
+        this.bestPrimaryRank = bestPrimaryRank;
+        this.bestOverallRank = bestOverallRank;
+        this.playerName = playerName;
+        this.playerUUID = playerUUID;
+        this.total = total;
+        this.totalWins = totalWins;
+        this.totalDivWins = totalDivWins;
+        this.averageRank = averageRank;
+        this.averageDivRank = averageDivRank;
+        this.averageDiv = averageDiv;
+        this.winStreak = winStreak;
+        this.divWinStreak = divWinStreak;
+    }
 
     /**
      * @return {@link #bestPrimaryRank}
      */
-    public bestRank getBestPrimaryRank() {
+    public BestRank getBestPrimaryRank() {
         return bestPrimaryRank;
     }
 
     /**
      * @return {@link #bestOverallRank}
      */
-    public bestRank getBestOverallRank() {
+    public BestRank getBestOverallRank() {
         return bestOverallRank;
     }
 
