@@ -1,5 +1,6 @@
 package fr.banalian.trackmaniabanalianstats;
 
+import fr.banalian.trackmaniabanalianstats.Data.COTDData;
 import fr.banalian.trackmaniabanalianstats.json.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +10,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 
 public class MainController {
 
@@ -18,7 +20,6 @@ public class MainController {
     @FXML
     private Button refreshButton;
 
-    private JsonParser jsonParser;
 
     /**
      * Create a Json object from String url
@@ -27,7 +28,7 @@ public class MainController {
     public JSONObject createJsonObjectFromUrl(String urlToParse) {
         JSONObject json = null;
         try {
-            json = jsonParser.parseJsonFromUrl(urlToParse);
+            json = JsonParser.parseJsonFromUrl(urlToParse);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,8 +46,11 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        jsonParser = new JsonParser();
         JSONObject data =  createJsonObjectFromUrl("https://trackmania.io/api/player/8ff2fad2-059d-4a9a-99d3-93861e2e8f89/cotd/0");
         totalCOTDLabel.setText(String.valueOf(data.get("total")));
+    }
+
+    public void test(){
+        COTDData cotdData = new COTDData(0,"Test COTD",548,32,7,0, LocalDateTime.now(),2500);
     }
 }
