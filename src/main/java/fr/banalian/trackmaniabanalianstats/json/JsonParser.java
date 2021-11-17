@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import fr.banalian.trackmaniabanalianstats.Data.BestRank;
@@ -19,6 +21,7 @@ import org.json.JSONObject;
 
 public class JsonParser {
 
+    private static final String COTD_URL = "https://trackmania.io/api/player/8ff2fad2-059d-4a9a-99d3-93861e2e8f89/cotd/";
 
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -37,14 +40,10 @@ public class JsonParser {
      * @throws JSONException if the JSONObject is not well-formed
      */
     public static JSONObject parseJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+        try (InputStream is = new URL(url).openStream()) {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            return json;
-        } finally {
-            is.close();
+            return new JSONObject(jsonText);
         }
     }
 
@@ -92,27 +91,77 @@ public class JsonParser {
         String playerName = "nailanab";
         UUID playerId = UUID.fromString("8ff2fad2-059d-4a9a-99d3-93861e2e8f89");
 
-        int total = json.getInt("total");
+        int totalParticipation = json.getInt("total");
 
         JSONObject stats = json.getJSONObject("stats");
         BestRank bestPrimary = createBestRankFromJSON(stats.getJSONObject("bestprimary"));
         BestRank bestOverall = createBestRankFromJSON(stats.getJSONObject("bestoverall"));
 
-        int totalWins = json.getInt("totalwins");
-        int totalDivWins = json.getInt("totaldivwins");
-        double averageRank = json.getDouble("averagerank");
-        double averageDivRank = json.getDouble("averagedivrank");
-        double averageDiv = json.getDouble("averagediv");
-        int winSteak = json.getInt("winstreak");
-        int divWinSteak = json.getInt("divwinstreak");
+        int totalWins = stats.getInt("totalwins");
+        int totalDivWins = stats.getInt("totaldivwins");
+        double averageRank = stats.getDouble("avgrank");
+        double averageDivRank = stats.getDouble("avgdivrank");
+        double averageDiv = stats.getDouble("avgdiv");
+        int winSteak = stats.getInt("winstreak");
+        int divWinSteak = stats.getInt("divwinstreak");
 
-        playerCOTDData = new PlayerCOTDData(bestPrimary,bestOverall,playerName,playerId,total,totalWins,totalDivWins,averageRank,averageDivRank,averageDiv,winSteak,divWinSteak);
+        playerCOTDData = new PlayerCOTDData(bestPrimary,bestOverall,playerName,playerId,totalParticipation,totalWins,totalDivWins,averageRank,averageDivRank,averageDiv,winSteak,divWinSteak);
+
+        try {
+            playerCOTDData.setCOTDArrayListData(createCOTDDataList(10));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return playerCOTDData;
     }
 
+    /**
+     * Create an array of COTDData from the class's trackmania.io API url
+     * @param maxIteration the maximum number of iterations to perform before stopping
+     * @return the array of COTDData
+     * @throws JSONException if the JSONObject is not well-formed/is empty
+     * @throws IOException if the url is not well-formed
+     */
+    public static ArrayList<COTDData> createCOTDDataList(int maxIteration) throws JSONException, IOException {
+        ArrayList<COTDData> cotdDataList = new ArrayList<>();
+
+        int i = 0;
+
+        JSONObject jsonObject = parseJsonFromUrl(COTD_URL+i);
+        JSONArray jsonArray = jsonObject.getJSONArray("cotds");
+
+        //while there is still cotds to parse
+        while(!jsonArray.isEmpty()){
+            for(int j = 0; j < jsonArray.length(); j++){
+                JSONObject json = jsonArray.getJSONObject(j);
+                cotdDataList.add(createCOTDDataFromJSON(json));
+            }
+
+            i++;
+
+            //to not have too many iterations and reaching the limit rate, we stop after a certain number of iterations
+            if(i>=maxIteration){
+                System.out.println("Too many requests i>="+maxIteration+", stopping");
+                break;
+            }
+
+            jsonObject = parseJsonFromUrl(COTD_URL+i);
+            jsonArray = jsonObject.getJSONArray("cotds");
+
+        }
+
+        return cotdDataList;
+    }
+
+    /**
+     * Create a BestRank object from a JSONObject
+     * @param json the JSONObject to parse from
+     * @return the BestRank object
+     * @throws JSONException if the JSONObject is not well-formed/is empty
+     */
     public static BestRank createBestRankFromJSON (JSONObject json) throws JSONException {
-        BestRank bestCategory = null;
+        BestRank bestCategory;
 
         int bestRank = json.getInt("bestrank");
         LocalDateTime bestRankTime = LocalDateTime.parse(json.getString("bestranktime"));
@@ -129,13 +178,18 @@ public class JsonParser {
 
     }
 
+
     public static void main(String[] args) throws IOException, JSONException {
-        JSONObject json = parseJsonFromUrl("https://trackmania.io/api/player/8ff2fad2-059d-4a9a-99d3-93861e2e8f89/cotd/0");
+        //JSONObject json = parseJsonFromUrl("https://trackmania.io/api/player/8ff2fad2-059d-4a9a-99d3-93861e2e8f89/cotd/0");
         //System.out.println(json.toString());
         //System.out.println("Total COTD played : "+json.get("total"));
-        JSONArray cotds = json.getJSONArray("cotds");
-        COTDData test = createCOTDDataFromJSON(cotds.getJSONObject(0));
-        System.out.println(test);
+        //JSONArray cotds = json.getJSONArray("cotds");
+        //COTDData test = createCOTDDataFromJSON(cotds.getJSONObject(0));
+        //System.out.println(test);
+
+        JSONObject json = parseJsonFromUrl("https://trackmania.io/api/player/8ff2fad2-059d-4a9a-99d3-93861e2e8f89/cotd/0");
+        PlayerCOTDData playerCOTDData = createPlayerCOTDDataFromJSON(json);
+        System.out.println(playerCOTDData);
     }
 
 }

@@ -1,7 +1,7 @@
 package fr.banalian.trackmaniabanalianstats.Data;
 
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -32,7 +32,7 @@ public class PlayerCOTDData {
     /**
      * The total number of participation
      */
-    private int total;
+    private int totalParticipation;
 
     /**
      * The total number of wins (first place in the world)
@@ -69,12 +69,28 @@ public class PlayerCOTDData {
      */
     private int divWinStreak;
 
-    public PlayerCOTDData(BestRank bestPrimaryRank, BestRank bestOverallRank, String playerName, UUID playerUUID, int total, int totalWins, int totalDivWins, double averageRank, double averageDivRank, double averageDiv, int winStreak, int divWinStreak) {
+    /**
+     * An array of all the COTD (Cup of the Day) the player has participated in
+     */
+    private ArrayList<COTDData> COTDArrayListData;
+
+    public PlayerCOTDData(BestRank bestPrimaryRank,
+                          BestRank bestOverallRank,
+                          String playerName,
+                          UUID playerUUID,
+                          int total,
+                          int totalWins,
+                          int totalDivWins,
+                          double averageRank,
+                          double averageDivRank,
+                          double averageDiv,
+                          int winStreak,
+                          int divWinStreak) {
         this.bestPrimaryRank = bestPrimaryRank;
         this.bestOverallRank = bestOverallRank;
         this.playerName = playerName;
         this.playerUUID = playerUUID;
-        this.total = total;
+        this.totalParticipation = total;
         this.totalWins = totalWins;
         this.totalDivWins = totalDivWins;
         this.averageRank = averageRank;
@@ -82,6 +98,7 @@ public class PlayerCOTDData {
         this.averageDiv = averageDiv;
         this.winStreak = winStreak;
         this.divWinStreak = divWinStreak;
+        this.COTDArrayListData = null;
     }
 
     /**
@@ -113,10 +130,10 @@ public class PlayerCOTDData {
     }
 
     /**
-     * @return {@link #total}
+     * @return {@link #totalParticipation}
      */
-    public int getTotal() {
-        return total;
+    public int getTotalParticipation() {
+        return totalParticipation;
     }
 
     /**
@@ -166,5 +183,118 @@ public class PlayerCOTDData {
      */
     public int getDivWinStreak() {
         return divWinStreak;
+    }
+
+    /**
+     * @return {@link #COTDArrayListData}
+     */
+    public ArrayList<COTDData> getCOTDArrayListData() {
+        return COTDArrayListData;
+    }
+
+
+    /**
+     * sets {@link #bestPrimaryRank}
+     * @param bestPrimaryRank the new value
+     */
+    public void setBestPrimaryRank(BestRank bestPrimaryRank) {
+        this.bestPrimaryRank = bestPrimaryRank;
+    }
+
+    /**
+     * sets {@link #bestOverallRank}
+     * @param bestOverallRank the new value
+     */
+    public void setBestOverallRank(BestRank bestOverallRank) {
+        this.bestOverallRank = bestOverallRank;
+    }
+
+    /**
+     * sets {@link #totalParticipation}
+     * @param totalParticipation the new value
+     */
+    public void setTotalParticipation(int totalParticipation) {
+        this.totalParticipation = totalParticipation;
+    }
+
+    /**
+     * sets {@link #totalWins}
+     * @param totalWins the new value
+     */
+    public void setTotalWins(int totalWins) {
+        this.totalWins = totalWins;
+    }
+
+    /**
+     * sets {@link #totalDivWins}
+     * @param totalDivWins the new value
+     */
+    public void setTotalDivWins(int totalDivWins) {
+        this.totalDivWins = totalDivWins;
+    }
+
+    /**
+     * sets {@link #averageRank}
+     * @param averageRank the new value
+     */
+    public void setAverageRank(double averageRank) {
+        this.averageRank = averageRank;
+    }
+
+    /**
+     * sets {@link #averageDivRank}
+     * @param averageDivRank the new value
+     */
+    public void setAverageDivRank(double averageDivRank) {
+        this.averageDivRank = averageDivRank;
+    }
+
+    /**
+     * sets {@link #averageDiv}
+     * @param averageDiv the new value
+     */
+    public void setAverageDiv(double averageDiv) {
+        this.averageDiv = averageDiv;
+    }
+
+    /**
+     * sets {@link #winStreak}
+     * @param winStreak the new value
+     */
+    public void setWinStreak(int winStreak) {
+        this.winStreak = winStreak;
+    }
+
+    /**
+     * sets {@link #divWinStreak}
+     * @param divWinStreak the new value
+     */
+    public void setDivWinStreak(int divWinStreak) {
+        this.divWinStreak = divWinStreak;
+    }
+
+    /**
+     * sets {@link #COTDArrayListData}
+     * @param COTDArrayListData the new arrayList data to be added
+     */
+    public void setCOTDArrayListData(ArrayList<COTDData> COTDArrayListData) {
+        this.COTDArrayListData = COTDArrayListData;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerCOTDData : " + playerName +
+                "bestPrimaryRank=" + bestPrimaryRank +
+                ", bestOverallRank=" + bestOverallRank +
+                ", playerUUID=" + playerUUID +
+                ", totalParticipation=" + totalParticipation +
+                ", totalWins=" + totalWins +
+                ", totalDivWins=" + totalDivWins +
+                ", averageRank=" + averageRank +
+                ", averageDivRank=" + averageDivRank +
+                ", averageDiv=" + averageDiv +
+                ", winStreak=" + winStreak +
+                ", divWinStreak=" + divWinStreak +
+                ", COTDArrayListData=\n" + COTDArrayListData;
     }
 }
