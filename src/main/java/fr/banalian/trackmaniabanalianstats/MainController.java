@@ -1,7 +1,7 @@
 package fr.banalian.trackmaniabanalianstats;
 
 import fr.banalian.trackmaniabanalianstats.Data.COTDData;
-import fr.banalian.trackmaniabanalianstats.json.JsonParser;
+import fr.banalian.trackmaniabanalianstats.utilities.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDateTime;
 
 public class MainController {

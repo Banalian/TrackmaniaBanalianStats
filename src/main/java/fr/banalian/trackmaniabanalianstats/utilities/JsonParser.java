@@ -1,4 +1,4 @@
-package fr.banalian.trackmaniabanalianstats.json;
+package fr.banalian.trackmaniabanalianstats.utilities;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -108,7 +107,7 @@ public class JsonParser {
         playerCOTDData = new PlayerCOTDData(bestPrimary,bestOverall,playerName,playerId,totalParticipation,totalWins,totalDivWins,averageRank,averageDivRank,averageDiv,winSteak,divWinSteak);
 
         try {
-            playerCOTDData.setCOTDArrayListData(createCOTDDataList(10));
+            playerCOTDData.setCOTDArrayListData(createCOTDDataList(10, null));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -123,28 +122,32 @@ public class JsonParser {
      * @throws JSONException if the JSONObject is not well-formed/is empty
      * @throws IOException if the url is not well-formed
      */
-    public static ArrayList<COTDData> createCOTDDataList(int maxIteration) throws JSONException, IOException {
+    public static ArrayList<COTDData> createCOTDDataList(int maxIteration, LocalDateTime dayToStop) throws JSONException, IOException {
         ArrayList<COTDData> cotdDataList = new ArrayList<>();
 
         int i = 0;
-
+        boolean stop = false;
         JSONObject jsonObject = parseJsonFromUrl(COTD_URL+i);
         JSONArray jsonArray = jsonObject.getJSONArray("cotds");
 
-        //while there is still cotds to parse
-        while(!jsonArray.isEmpty()){
+        //while there is still cotds to parse or the maximum number of iterations has not been reached or while new data is available
+        while(!jsonArray.isEmpty() && i < maxIteration && !stop) {
             for(int j = 0; j < jsonArray.length(); j++){
                 JSONObject json = jsonArray.getJSONObject(j);
-                cotdDataList.add(createCOTDDataFromJSON(json));
+                COTDData cotdData = createCOTDDataFromJSON(json);
+                if(dayToStop!=null){
+                    if(cotdData.getDate().isBefore(dayToStop) || cotdData.getDate().isEqual(dayToStop)){
+                        stop = true;
+                    }else{
+                        cotdDataList.add(cotdData);
+                    }
+                }else{
+                    cotdDataList.add(cotdData);
+                }
+
             }
 
             i++;
-
-            //to not have too many iterations and reaching the limit rate, we stop after a certain number of iterations
-            if(i>=maxIteration){
-                System.out.println("Too many requests i>="+maxIteration+", stopping");
-                break;
-            }
 
             jsonObject = parseJsonFromUrl(COTD_URL+i);
             jsonArray = jsonObject.getJSONArray("cotds");

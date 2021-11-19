@@ -1,11 +1,12 @@
 package fr.banalian.trackmaniabanalianstats.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * The stats on the ranks of a COTD category
  */
-public class BestRank {
+public class BestRank implements Serializable {
 
     /**
      * The best rank of the player

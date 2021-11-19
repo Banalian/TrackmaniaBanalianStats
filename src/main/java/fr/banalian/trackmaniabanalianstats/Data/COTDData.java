@@ -1,11 +1,12 @@
 package fr.banalian.trackmaniabanalianstats.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * Class to store the data of a singe COTD (Cup of the Day)
  */
-public class COTDData {
+public class COTDData implements Serializable {
 
     /**
      * the division the player ended in

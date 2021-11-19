@@ -1,13 +1,14 @@
 package fr.banalian.trackmaniabanalianstats.Data;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
 /**
  * Class to store the data of a player statistics for all the COTD (Cup of the Day)
  */
-public class PlayerCOTDData {
+public class PlayerCOTDData implements Serializable {
 
     /**
      * The stats on the ranks of the primary COTD (each day at 19:00)
@@ -283,18 +284,18 @@ public class PlayerCOTDData {
 
     @Override
     public String toString() {
-        return "PlayerCOTDData : " + playerName +
-                "bestPrimaryRank=" + bestPrimaryRank +
-                ", bestOverallRank=" + bestOverallRank +
-                ", playerUUID=" + playerUUID +
-                ", totalParticipation=" + totalParticipation +
-                ", totalWins=" + totalWins +
-                ", totalDivWins=" + totalDivWins +
-                ", averageRank=" + averageRank +
-                ", averageDivRank=" + averageDivRank +
-                ", averageDiv=" + averageDiv +
-                ", winStreak=" + winStreak +
-                ", divWinStreak=" + divWinStreak +
-                ", COTDArrayListData=\n" + COTDArrayListData;
+        return "PlayerCOTDData : " + playerName + "\n" +
+                "bestPrimaryRank=" + bestPrimaryRank + "\n" +
+                "- bestOverallRank=" + bestOverallRank + "\n" +
+                "- playerUUID=" + playerUUID + "\n" +
+                "- totalParticipation=" + totalParticipation + "\n" +
+                "- totalWins=" + totalWins + "\n" +
+                "- totalDivWins=" + totalDivWins + "\n" +
+                "- averageRank=" + averageRank + "\n" +
+                "- averageDivRank=" + averageDivRank + "\n" +
+                "- averageDiv=" + averageDiv + "\n" +
+                "- winStreak=" + winStreak + "\n" +
+                "- divWinStreak=" + divWinStreak + "\n" +
+                "- COTDArrayListData=\n" + COTDArrayListData;
     }
 }
