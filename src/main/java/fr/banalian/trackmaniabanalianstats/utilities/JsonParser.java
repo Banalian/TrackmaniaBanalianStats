@@ -139,10 +139,11 @@ public class JsonParser {
                     if(cotdData.getDate().isBefore(dayToStop) || cotdData.getDate().isEqual(dayToStop)){
                         stop = true;
                     }else{
-                        cotdDataList.add(cotdData);
+                        //0 index so that the data is ordered by date, the latest data being at the end
+                        cotdDataList.add(0,cotdData);
                     }
                 }else{
-                    cotdDataList.add(cotdData);
+                    cotdDataList.add(0,cotdData);
                 }
 
             }
