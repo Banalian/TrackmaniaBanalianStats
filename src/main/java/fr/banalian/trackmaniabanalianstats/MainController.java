@@ -3,6 +3,7 @@ package fr.banalian.trackmaniabanalianstats;
 import fr.banalian.trackmaniabanalianstats.Data.COTDData;
 import fr.banalian.trackmaniabanalianstats.Data.PlayerCOTDData;
 import fr.banalian.trackmaniabanalianstats.utilities.JsonParser;
+import fr.banalian.trackmaniabanalianstats.utilities.Serializer;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -84,9 +85,24 @@ public class MainController {
 
     @FXML
     public void initialize() {
+
+        Serializer serializer = new Serializer();
+        PlayerCOTDData playerCOTDData = serializer.deserializePlayerCOTDData();
+
         JSONObject data =  createJsonObjectFromUrl("https://trackmania.io/api/player/8ff2fad2-059d-4a9a-99d3-93861e2e8f89/cotd/0");
-        //totalCOTDLabel.setText(String.valueOf(data.get("total")));
-        PlayerCOTDData playerCOTDData = JsonParser.createPlayerCOTDDataFromJSON(data);
+
+        if(playerCOTDData == null) {
+            playerCOTDData = JsonParser.createPlayerCOTDDataFromJSON(data);
+        }else{
+            System.out.println("PlayerCOTDData already exists");
+            try {
+               JsonParser.updatePlayerCOTDDataFromJSON(playerCOTDData, data);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
         setLabelsFromPlayerCOTDData(playerCOTDData);
 
         setRankChartData(playerCOTDData);

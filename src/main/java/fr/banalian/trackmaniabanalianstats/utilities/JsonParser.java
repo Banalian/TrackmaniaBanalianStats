@@ -115,6 +115,18 @@ public class JsonParser {
         return playerCOTDData;
     }
 
+    public static PlayerCOTDData updatePlayerCOTDDataFromJSON(PlayerCOTDData playerCOTDData, JSONObject data) throws IOException {
+
+        ArrayList<COTDData> cotdDataArrayList = playerCOTDData.getCOTDArrayListData();
+        int size = cotdDataArrayList.size();
+        System.out.println("Catching all the new data until " + cotdDataArrayList.get(size-1).getDate());
+        ArrayList<COTDData> newCOTDDataArrayList = createCOTDDataList(10, cotdDataArrayList.get(size-1).getDate());
+
+        cotdDataArrayList.addAll(newCOTDDataArrayList);
+
+        return playerCOTDData;
+    }
+
     /**
      * Create an array of COTDData from the class's trackmania.io API url
      * @param maxIteration the maximum number of iterations to perform before stopping
@@ -137,7 +149,9 @@ public class JsonParser {
                 COTDData cotdData = createCOTDDataFromJSON(json);
                 if(dayToStop!=null){
                     if(cotdData.getDate().isBefore(dayToStop) || cotdData.getDate().isEqual(dayToStop)){
+                        System.out.println("Stopping at " + cotdData.getDate());
                         stop = true;
+                        break;
                     }else{
                         //0 index so that the data is ordered by date, the latest data being at the end
                         cotdDataList.add(0,cotdData);
@@ -157,6 +171,7 @@ public class JsonParser {
 
         return cotdDataList;
     }
+
 
     /**
      * Create a BestRank object from a JSONObject
@@ -195,5 +210,6 @@ public class JsonParser {
         PlayerCOTDData playerCOTDData = createPlayerCOTDDataFromJSON(json);
         System.out.println(playerCOTDData);
     }
+
 
 }
