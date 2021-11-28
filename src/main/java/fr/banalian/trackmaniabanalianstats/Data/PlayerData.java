@@ -2,6 +2,7 @@ package fr.banalian.trackmaniabanalianstats.Data;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -47,7 +48,7 @@ public class PlayerData {
     /**
      * The player's position in each zones
      */
-    private int[] zonePosition;
+    private ArrayList<Integer> zonePosition;
 
     public UUID getAccountId() {
         return accountId;
@@ -137,11 +138,25 @@ public class PlayerData {
         this.zone = zone;
     }
 
-    public int[] getZonePosition() {
+    public ArrayList<Integer> getZonePosition() {
         return zonePosition;
     }
 
-    public void setZonePosition(int[] zonePosition) {
+    public void setZonePosition(ArrayList<Integer> zonePosition) {
         this.zonePosition = zonePosition;
+    }
+
+
+    @Override
+    public String toString() {
+        return "PlayerData :" +
+                "accountId=" + accountId + "\n" +
+                "displayName='" + displayName + '\'' + "\n" +
+                "startedPlaying=" + startedPlaying + "\n" +
+                "totalPoints=" + totalPoints + "\n" +
+                "trophiesArray=" + Arrays.toString(trophiesArray) + "\n" +
+                "echelon=" + echelon + "\n" +
+                "zone=" + zone + "\n" +
+                "zonePosition=" + zonePosition +"\n";
     }
 }

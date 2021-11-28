@@ -1,6 +1,7 @@
 package fr.banalian.trackmaniabanalianstats.utilities;
 
 import fr.banalian.trackmaniabanalianstats.Data.PlayerCOTDData;
+import fr.banalian.trackmaniabanalianstats.Data.PlayerData;
 import org.json.JSONObject;
 import fr.banalian.trackmaniabanalianstats.utilities.JsonParser;
 
@@ -109,6 +110,55 @@ public class Serializer {
 
         return playerCOTDData;
     }
+
+
+    /**
+     * Serialize the PlayerData object into a file named "playerData.dat"
+     * Will be stored in the directory "data"
+     * @param playerData the PlayerData object to serialize
+     */
+    public void serializePlayerData(PlayerData playerData) {
+
+        File dir = createOpenDir("data");
+
+        File playerCOTDDataFile = createOpenFile("data"+File.separator+"playerData.dat");
+
+        try {
+            oS = new ObjectOutputStream(new FileOutputStream(playerCOTDDataFile));
+            oS.writeObject(playerData);
+            oS.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Deserialize the playerData object from a file named "playerData.dat"
+     * Will be read from the directory "data"
+     * @return the playerData object
+     */
+    public PlayerData deserializePlayerData() {
+
+        File dir = createOpenDir("data");
+
+        File playerDataFile = createOpenFile("data"+File.separator+"playerData.dat");
+
+        PlayerData playerData;
+
+        try {
+            iS = new ObjectInputStream(new FileInputStream(playerDataFile));
+            playerData = (PlayerData) iS.readObject();
+            iS.close();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return null;
+        }
+
+        return playerData;
+    }
+
 
     public static void main(String[] args) {
 

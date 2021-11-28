@@ -109,6 +109,8 @@ public class MainController {
 
         setTreeViewData(playerCOTDData);
 
+        serializer.serializePlayerCOTDData(playerCOTDData);
+
     }
 
 
