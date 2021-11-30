@@ -2,6 +2,7 @@ package fr.banalian.trackmaniabanalianstats;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -15,6 +16,13 @@ public class MainApplication extends Application {
         stage.setTitle("Banalian's Trackmania Stats");
         stage.setScene(scene);
         stage.show();
+
+
+        //to hide all the divider lines in the split pane from the profile tab
+        for (Node node : scene.getRoot().lookupAll(".split-pane-divider")) {
+            node.setVisible(false);
+        }
+
     }
 
     public static void main(String[] args) {
