@@ -30,6 +30,13 @@
             </MenuBar>
             <TabPane prefHeight="776.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
+                <Tab text="Profile">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <fx:include fx:id="playerTab" source="playerTab.fxml" />
+                    </AnchorPane>
+                  </content>
+                </Tab>
                 <Tab text="Cup Of The Day">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -118,13 +125,6 @@
                               </TabPane>
                            </children>
                         </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="Profile">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                      <fx:include fx:id="playerTab" source="playerTab.fxml" />
-                    </AnchorPane>
                   </content>
                 </Tab>
               </tabs>

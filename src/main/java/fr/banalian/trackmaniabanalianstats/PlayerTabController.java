@@ -4,6 +4,7 @@ import fr.banalian.trackmaniabanalianstats.Data.PlayerData;
 import fr.banalian.trackmaniabanalianstats.utilities.JsonParser;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.ImageView;
@@ -37,6 +38,9 @@ public class PlayerTabController {
     @FXML
     private Label startedPlayingLabel;
 
+    @FXML
+    private Label trophyPointLabel;
+
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
 
     @FXML
@@ -59,6 +63,7 @@ public class PlayerTabController {
         clubTagLabel.setText("Club tag : " + playerData.getClubTag());
         uuidLabel.setText("Account ID : " + playerData.getAccountId());
         startedPlayingLabel.setText("Started playing : " + playerData.getStartedPlaying().format(dateTimeFormatter));
+        trophyPointLabel.setText("Total trophy points : " + playerData.getTotalPoints());
     }
 
 
@@ -71,6 +76,7 @@ public class PlayerTabController {
             if(i%3 == 0) {
                 //create a new HBox
                 hBox = new HBox();
+                hBox.setAlignment(Pos.TOP_RIGHT);
                 vBoxTrophies.getChildren().add(hBox);
             }
             ImageView imageView = new ImageView("file:img/trophies/" + i + ".png");
@@ -128,7 +134,7 @@ public class PlayerTabController {
             }else{
                 endPosition = "th";
             }
-            Label labelPlace = new Label(String.valueOf(position)+endPosition);
+            Label labelPlace = new Label(position+endPosition);
 
             splitPanel.getItems().add(labelPlace);
 

@@ -28,6 +28,11 @@
             </font>
          </Label>
       </children></VBox>
-   <VBox fx:id="vBoxTrophies" layoutX="512.0" layoutY="294.0" prefHeight="200.0" prefWidth="480.0" />
-   <VBox fx:id="vBoxRegion" layoutX="32.0" layoutY="294.0" prefHeight="200.0" prefWidth="480.0" />
+   <Label fx:id="trophyPointLabel" alignment="CENTER" layoutX="14.0" layoutY="276.0" prefHeight="57.0" prefWidth="996.0" text="Total trophy points : " textAlignment="CENTER">
+      <font>
+         <Font name="Arial" size="36.0" />
+      </font>
+   </Label>
+   <VBox fx:id="vBoxTrophies" alignment="TOP_RIGHT" layoutX="512.0" layoutY="354.0" prefHeight="200.0" prefWidth="480.0" />
+   <VBox fx:id="vBoxRegion" layoutX="32.0" layoutY="354.0" prefHeight="200.0" prefWidth="480.0" />
 </AnchorPane>
