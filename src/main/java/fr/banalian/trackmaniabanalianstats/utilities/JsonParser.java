@@ -22,6 +22,7 @@ import org.json.JSONObject;
 public class JsonParser {
 
     private static final String COTD_URL = "https://trackmania.io/api/player/8ff2fad2-059d-4a9a-99d3-93861e2e8f89/cotd/";
+    private static final String PLAYER_URL = "https://trackmania.io/api/player/8ff2fad2-059d-4a9a-99d3-93861e2e8f89";
 
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -224,6 +225,12 @@ public class JsonParser {
         UUID uuid = UUID.fromString(json.getString("accountid"));
         String playerName = json.getString("displayname");
 
+        String clubTag = json.getString("clubtag");
+
+        String tempClub = json.getString("clubtagtimestamp");
+        tempClub = tempClub.replace("+00:00", "");
+        LocalDateTime clubTagLastUpdate = LocalDateTime.parse(tempClub);
+
         String temp = json.getString("timestamp");
         temp = temp.replace("+00:00", "");
         LocalDateTime joinDate  = LocalDateTime.parse(temp);
@@ -260,6 +267,8 @@ public class JsonParser {
         playerData = new PlayerData();
         playerData.setAccountId(uuid);
         playerData.setDisplayName(playerName);
+        playerData.setClubTag(clubTag);
+        playerData.setClubTagLastUpdate(clubTagLastUpdate);
         playerData.setStartedPlaying(joinDate);
         playerData.setTotalPoints(points);
         playerData.setTrophiesTab(tiers);

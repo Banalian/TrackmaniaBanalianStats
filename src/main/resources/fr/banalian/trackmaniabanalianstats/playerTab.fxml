@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="776.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.banalian.trackmaniabanalianstats.PlayerTabController">
-   <HBox fx:id="hBoxTrophies" layoutX="88.0" layoutY="120.0" prefHeight="100.0" prefWidth="200.0"/>
+<AnchorPane prefHeight="776.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.banalian.trackmaniabanalianstats.PlayerTabController">
+   <VBox layoutX="14.0" layoutY="14.0" prefHeight="233.0" prefWidth="996.0">
+      <children>
+         <Label fx:id="displayNameLabel" alignment="CENTER" prefHeight="57.0" prefWidth="996.0" text="Display name : " textAlignment="CENTER">
+            <font>
+               <Font name="Arial Bold Italic" size="36.0" />
+            </font>
+         </Label>
+         <Label fx:id="clubTagLabel" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="57.0" prefWidth="996.0" text="Club Tag : " textAlignment="CENTER">
+            <font>
+               <Font name="Arial Bold Italic" size="36.0" />
+            </font>
+         </Label>
+         <Label fx:id="uuidLabel" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="57.0" prefWidth="996.0" text="Account ID : " textAlignment="CENTER">
+            <font>
+               <Font name="Arial Bold Italic" size="36.0" />
+            </font>
+         </Label>
+         <Label fx:id="startedPlayingLabel" alignment="CENTER" layoutX="10.0" layoutY="124.0" prefHeight="57.0" prefWidth="996.0" text="Started playing :" textAlignment="CENTER">
+            <font>
+               <Font name="Arial Bold Italic" size="36.0" />
+            </font>
+         </Label>
+      </children></VBox>
+   <VBox fx:id="vBoxTrophies" layoutX="512.0" layoutY="294.0" prefHeight="200.0" prefWidth="480.0" />
+   <VBox fx:id="vBoxRegion" layoutX="32.0" layoutY="294.0" prefHeight="200.0" prefWidth="480.0" />
 </AnchorPane>

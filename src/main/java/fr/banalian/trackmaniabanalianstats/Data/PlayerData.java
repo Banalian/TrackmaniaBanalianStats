@@ -21,6 +21,16 @@ public class PlayerData {
     private String displayName;
 
     /**
+     * The player's club tag
+     */
+    private String clubTag;
+
+    /**
+     * The player's club tag latest update
+     */
+    private LocalDateTime clubTagLastUpdate;
+
+    /**
      * The player's first join date
      */
     private LocalDateTime startedPlaying;
@@ -64,6 +74,22 @@ public class PlayerData {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getClubTag() {
+        return clubTag;
+    }
+
+    public void setClubTag(String clubTag) {
+        this.clubTag = clubTag;
+    }
+
+    public LocalDateTime getClubTagLastUpdate() {
+        return clubTagLastUpdate;
+    }
+
+    public void setClubTagLastUpdate(LocalDateTime clubTagLastUpdate) {
+        this.clubTagLastUpdate = clubTagLastUpdate;
     }
 
     public LocalDateTime getStartedPlaying() {
@@ -151,7 +177,9 @@ public class PlayerData {
     public String toString() {
         return "PlayerData :" +
                 "accountId=" + accountId + "\n" +
-                "displayName='" + displayName + '\'' + "\n" +
+                "displayName='" + displayName + "\n" +
+                "clubTag='" + clubTag + "\n" +
+                "clubTagLastUpdate=" + clubTagLastUpdate + "\n" +
                 "startedPlaying=" + startedPlaying + "\n" +
                 "totalPoints=" + totalPoints + "\n" +
                 "trophiesArray=" + Arrays.toString(trophiesArray) + "\n" +
