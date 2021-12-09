@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,11 +42,17 @@ public class JsonParser {
      * @throws JSONException if the JSONObject is not well-formed
      */
     public static JSONObject parseJsonFromUrl(String url) throws IOException, JSONException {
-        try (InputStream is = new URL(url).openStream()) {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-            String jsonText = readAll(rd);
-            return new JSONObject(jsonText);
-        }
+        URL urlObject = new URL(url);
+        URLConnection in =  urlObject.openConnection();
+        in.setRequestProperty(
+                "User-Agent",
+                "BanalianTrackManiaStats : Request data from my profile to get the stats for my personal analysis"
+        );
+        InputStream is = in.getInputStream();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+        String jsonText = readAll(rd);
+        return new JSONObject(jsonText);
+
     }
 
     /**
@@ -126,11 +133,10 @@ public class JsonParser {
     /**
      * updates the PlayerCOTDData object with the new data
      * @param playerCOTDData the PlayerCOTDData object to update
-     * @param data the new data to update with
      * @return the updated PlayerCOTDData object
      * @throws IOException if the json data is not well-formed
      */
-    public static PlayerCOTDData updatePlayerCOTDDataFromJSON(PlayerCOTDData playerCOTDData, JSONObject data) throws IOException {
+    public static PlayerCOTDData updatePlayerCOTDDataFromJSON(PlayerCOTDData playerCOTDData) throws IOException {
 
         ArrayList<COTDData> cotdDataArrayList = playerCOTDData.getCOTDArrayListData();
         int size = cotdDataArrayList.size();
@@ -177,10 +183,12 @@ public class JsonParser {
 
             }
 
-            i++;
+            if(!stop){
+                i++;
 
-            jsonObject = parseJsonFromUrl(COTD_URL+i);
-            jsonArray = jsonObject.getJSONArray("cotds");
+                jsonObject = parseJsonFromUrl(COTD_URL+i);
+                jsonArray = jsonObject.getJSONArray("cotds");
+            }
 
         }
 

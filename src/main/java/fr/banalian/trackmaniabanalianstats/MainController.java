@@ -89,14 +89,13 @@ public class MainController {
         Serializer serializer = new Serializer();
         PlayerCOTDData playerCOTDData = serializer.deserializePlayerCOTDData();
 
-        JSONObject data =  createJsonObjectFromUrl("https://trackmania.io/api/player/8ff2fad2-059d-4a9a-99d3-93861e2e8f89/cotd/0");
-
         if(playerCOTDData == null) {
+            JSONObject data =  createJsonObjectFromUrl("https://trackmania.io/api/player/8ff2fad2-059d-4a9a-99d3-93861e2e8f89/cotd/0");
             playerCOTDData = JsonParser.createPlayerCOTDDataFromJSON(data);
         }else{
             System.out.println("PlayerCOTDData already exists");
             try {
-               JsonParser.updatePlayerCOTDDataFromJSON(playerCOTDData, data);
+               JsonParser.updatePlayerCOTDDataFromJSON(playerCOTDData);
             } catch (IOException e) {
                 e.printStackTrace();
             }
