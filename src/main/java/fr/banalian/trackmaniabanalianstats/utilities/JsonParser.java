@@ -46,7 +46,7 @@ public class JsonParser {
         URLConnection in =  urlObject.openConnection();
         in.setRequestProperty(
                 "User-Agent",
-                "BanalianTrackManiaStats : Request data from my profile to get the stats for my personal analysis"
+                "BanalianTrackManiaStats / 1.0 Request data from my profile to get the stats for my personal analysis"
         );
         InputStream is = in.getInputStream();
         BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));

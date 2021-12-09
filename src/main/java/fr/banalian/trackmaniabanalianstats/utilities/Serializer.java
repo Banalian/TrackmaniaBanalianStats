@@ -3,7 +3,6 @@ package fr.banalian.trackmaniabanalianstats.utilities;
 import fr.banalian.trackmaniabanalianstats.Data.PlayerCOTDData;
 import fr.banalian.trackmaniabanalianstats.Data.PlayerData;
 import org.json.JSONObject;
-import fr.banalian.trackmaniabanalianstats.utilities.JsonParser;
 
 import java.io.*;
 

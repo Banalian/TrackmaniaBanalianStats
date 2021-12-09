@@ -15,7 +15,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Formatter;
 
 public class PlayerTabController {
 
